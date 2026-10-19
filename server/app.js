@@ -16,6 +16,14 @@ app.use(cors());
 // Parse incoming JSON requests
 app.use(express.json());
 
+// Check whether the TaskFlow API is running.
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "TaskFlow API is running",
+  });
+});
+
 // Serve uploaded files publicly
 app.use("/uploads", express.static("uploads"));
 

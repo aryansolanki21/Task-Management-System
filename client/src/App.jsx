@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
 
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -13,25 +14,18 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 const App = () => {
   return (
     <BrowserRouter>
-      {/* Main navigation bar */}
+      {/* Shared navigation across all pages. */}
       <Navbar />
 
       <Routes>
-        {/* Redirect root URL to dashboard when authenticated, otherwise send to login */}
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Navigate to="/dashboard" />
-            </ProtectedRoute>
-          }
-        />
+        {/* Public landing page. */}
+        <Route path="/" element={<Home />} />
 
-        {/* Public routes */}
+        {/* Authentication pages. */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Protected routes */}
+        {/* Pages available only to authenticated users. */}
         <Route
           path="/dashboard"
           element={
@@ -59,7 +53,8 @@ const App = () => {
           }
         />
 
-        <Route path="*" element={<Navigate to="/login" />} />
+        {/* Redirect unknown URLs to Home. */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

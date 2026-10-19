@@ -20,11 +20,12 @@ const Navbar = () => {
   const handleLogout = () => {
     setShowDropdown(false);
 
+    logout();
+    
     toast.success("Logged out successfully");
 
-    logout();
 
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -34,10 +35,7 @@ const Navbar = () => {
       }`}
     >
       {/* App logo */}
-      <Link
-        to={isAuthenticated ? "/dashboard" : "/login"}
-        className="text-2xl font-bold text-blue-500"
-      >
+      <Link to="/" className="text-2xl font-bold text-blue-500">
         📋 TaskFlow
       </Link>
 
@@ -51,6 +49,21 @@ const Navbar = () => {
           >
             {darkMode ? "☀️" : "🌙"}
           </button>
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `transition ${
+                isActive
+                  ? "text-blue-500 font-semibold"
+                  : darkMode
+                    ? "text-slate-300 hover:text-white"
+                    : "text-gray-700 hover:text-blue-500"
+              }`
+            }
+          >
+            Home
+          </NavLink>
           <NavLink
             to="/dashboard"
             className={({ isActive }) =>
@@ -148,15 +161,24 @@ const Navbar = () => {
         // Guest user navigation
         <div className="flex items-center gap-4">
           <Link
+            to="/"
+            className={`px-4 py-2 rounded-lg transition font-medium ${
+              darkMode
+                ? "text-slate-300 hover:bg-slate-700 hover:text-white"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            Home
+          </Link>
+          <Link
             to="/login"
-            className={`
-      px-4 py-2 rounded-lg transition font-medium
-      ${
-        darkMode
-          ? "text-slate-300 hover:bg-slate-700 hover:text-white"
-          : "text-gray-700 hover:bg-gray-100"
-      }
-    `}
+            className={`px-4 py-2 rounded-lg transition font-medium
+              ${
+                darkMode
+                  ? "text-slate-300 hover:bg-slate-700 hover:text-white"
+                  : "text-gray-700 hover:bg-gray-100"
+              }
+            `}
           >
             Login
           </Link>
